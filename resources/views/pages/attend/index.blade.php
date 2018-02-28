@@ -35,19 +35,21 @@
                     type: "POST",
                     cache: false,
                     url : "{{ route('attend.post') }}",
-                    data: {data:data},
+                    data: {email:data},
                         success: function(data) {
                         console.log(data);
-                        if (data.response == true) {
-                            //location.reload()
-                            $(location).attr('href', '{{ url('/success') }}');
-                        }else{
-                        return confirm('There is no user with this qr code'); 
+                        // if (data.response == true) {
+                        //     //location.reload()
+                        //     $(location).attr('href', '{{ url('/success') }}');
+                        // }else{
+                        // return confirm('There is no user with this qr code'); 
+                        // }
+                        // // 
                         }
-                        // 
-                        }
-                    })
-            }else{return confirm('There is no  data');}
+                })
+            }else{
+                return confirm('There is no  data');
+            }
         },
         function(error){
             $('#message').html('Scaning now ....'  );

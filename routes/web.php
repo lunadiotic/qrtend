@@ -24,3 +24,11 @@ Route::post('/attend', 'AttendController@postScan')->name('attend.post');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::get('test', function () {
+    $iplocal = ip2long(getHostByName(getHostName()));
+    $gateway = env(IP_ADDRESS);
+    echo $iplow = ip2long($gateway);
+    $iphigh = ip2long($gateway) + 253;
+});
