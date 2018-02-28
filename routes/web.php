@@ -11,9 +11,15 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('/success', function () {
     return view('welcome');
 });
+
+Route::get('/', function () {
+    return view('pages.attend.index');
+});
+
+Route::post('/attend', 'AttendController@postScan')->name('attend.post');
 
 Auth::routes();
 
