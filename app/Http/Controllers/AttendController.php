@@ -17,6 +17,11 @@ class AttendController extends Controller
          * Dan jika sudah ada 2 kali submit, tidak bisa submit lagi
          */
 
+        /**
+         * Jika jam pagi tidak ada dan melewati jam 17, dianggap absen,
+         * Jika Jam pagi tidak ada dan jam siang ada, masuk setengah hari
+         */
+
         $iplocal = ip2long(getHostByName(getHostName()));
         $gateway = env('IP_ADDRESS');
         $iplow = ip2long($gateway);
