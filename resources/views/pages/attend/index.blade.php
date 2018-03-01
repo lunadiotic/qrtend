@@ -36,16 +36,24 @@
                     cache: false,
                     url : "{{ route('attend.post') }}",
                     data: {email:data},
-                        success: function(data) {
+                    success: function(data) {
                         console.log(data);
-                        // if (data.response == true) {
-                        //     //location.reload()
-                        //     $(location).attr('href', '{{ url('/success') }}');
-                        // }else{
-                        // return confirm('There is no user with this qr code'); 
-                        // }
-                        // // 
+                        if (data.response == true) {
+                            swal({
+                                title: 'Success',
+                                text: data.message,
+                                type: 'success',
+                                timer: 1500
+                            });
+                        } else {
+                            swal({
+                                title: 'Fail',
+                                text: data.message,
+                                type: 'error',
+                                timer: 1500
+                            });
                         }
+                    }
                 })
             }else{
                 return confirm('There is no  data');

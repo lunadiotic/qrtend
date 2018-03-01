@@ -36,14 +36,14 @@ class AttendController extends Controller
                         return $data = [
                             'data' => null,
                             'response' => false,
-                            'message' => 'Has been check in'
+                            'message' => $user->name . ' Has been check in'
                         ];
                     }
                     Attend::create($data);
                     return $response = [
                         'data' => $data,
                         'response' => true,
-                        'message' => 'Check in successful'
+                        'message' => $user->name . ' Check in successful'
                     ];
                 } else {
                     $data = [
@@ -55,7 +55,7 @@ class AttendController extends Controller
                         return $data = [
                             'data' => null,
                             'response' => false,
-                            'message' => 'Has been check out'
+                            'message' => $user->name . ' Has been check out'
                         ];
                     }
     
@@ -63,7 +63,7 @@ class AttendController extends Controller
                     return $response = [
                         'data' => $data,
                         'response' => true,
-                        'message' => 'Check out successful'
+                        'message' => $user->name . ' Check out successful'
                     ];
                 }
             }

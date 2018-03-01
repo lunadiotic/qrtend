@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('vendor/bootstrap-3.3.7/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('vendor/sweetalert2/sweetalert2.min.css') }}">
     @yield('styles')
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
@@ -81,6 +82,7 @@
     <script src="{{ asset('vendor/jquery/jquery-1.12.4.min.js') }}"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{{ asset('vendor/bootstrap-3.3.7/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('vendor/sweetalert2/sweetalert2.min.js') }}"></script>
     @yield('scripts')
     <script src="{{ asset('js/app.js') }}"></script>
     <script type="text/javascript">
