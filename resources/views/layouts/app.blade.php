@@ -39,7 +39,10 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+                        @if (!Auth::guest())
+                            <li><a href="{{ route('admin.user.index') }}">User</a></li>
+                            <li><a href="{{ route('admin.employee.index') }}">Employee</a></li>
+                        @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -92,5 +95,25 @@
             }
         });
     </script>
+    @if (notify()->ready())
+        <script>
+            $(document).ready(function(){
+                swal({
+                    title: "{!! notify()->message() !!}",
+                    text: "{!! notify()->option('text') !!}",
+                    type: "{{ notify()->type() }}",
+                    timer: "{!! notify()->option('timer') !!}"
+                }).then(
+                    function () {},
+                    // handling the promise rejection
+                    function (dismiss) {
+                        if (dismiss === 'timer') {
+                            console.log('I was closed by the timer')
+                        }
+                    }
+                )
+            });
+        </script>
+    @endif
 </body>
 </html>

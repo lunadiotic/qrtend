@@ -10,10 +10,8 @@
                 </div>
 
                 <div class="panel-body">
-                    {!! Form::model($user, ['route' => ['admin.user.update', $user->id], 'method' => 'PUT']) !!}
-                    
-                       @include('pages.user._form')
-                    
+                    {!! Form::open(['method' => 'POST', 'route' => 'admin.employee.store']) !!}
+                        @include('pages.employee._form')
                     {!! Form::close() !!}
                 </div>
             </div>

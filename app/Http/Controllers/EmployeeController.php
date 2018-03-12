@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Facades\Datatables;
 
-class UserController extends Controller
+class EmployeeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('pages.user.index');
+        return view('pages.employee.index');
     }
 
     /**
@@ -25,7 +25,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('pages.user.create');
+        return view('pages.employee.create');
     }
 
     /**
@@ -44,7 +44,7 @@ class UserController extends Controller
         // hash password
         $request->merge(['password' => bcrypt($request->get('password'))]);
 
-        $request['role'] = 'admin';
+        $request['role'] = 'employee';
 
         User::create($request->all());
         
@@ -53,7 +53,7 @@ class UserController extends Controller
             'text' => 'Created Successfully',
         ]);
         
-        return redirect()->route('admin.user.index');
+        return redirect()->route('admin.employee.index');
     }
 
     /**
@@ -65,7 +65,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        return view('pages.user.show', compact('user'));
+        return view('pages.employee.show', compact('user'));
     }
 
     /**
@@ -77,7 +77,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        return view('pages.user.edit', compact('user'));
+        return view('pages.employee.edit', compact('user'));
     }
 
     /**
@@ -109,7 +109,7 @@ class UserController extends Controller
             'text' => 'Updated Successfully',
         ]);
         
-        return redirect()->route('admin.user.index');
+        return redirect()->route('admin.employee.index');
     }
 
     /**
@@ -125,19 +125,19 @@ class UserController extends Controller
             'timer' => 1500,
             'text' => 'Deleted Successfully',
         ]);
-        return redirect()->route('admin.user.index');
+        return redirect()->route('admin.employee.index');
     }
 
         public function dataTable()
         {
-            $user = User::where('role', 'admin');
+            $user = User::where('role', 'employee');
             return Datatables::of($user)
                 ->addColumn('action', function ($user) {
                     return view('layouts.partials._action', [
                         'model' => $user,
-                        'edit_url' => route('admin.user.edit', $user->id),
-                        'show_url' => route('admin.user.show', $user->id),
-                        'form_url' => route('admin.user.destroy', $user->id),
+                        'edit_url' => route('admin.employee.edit', $user->id),
+                        'show_url' => route('admin.employee.show', $user->id),
+                        'form_url' => route('admin.employee.destroy', $user->id),
                     ]);
                 })
                 ->make(true);

@@ -10,9 +10,9 @@
                 </div>
 
                 <div class="panel-body">
-                    {!! Form::model($user, ['route' => ['admin.user.update', $user->id], 'method' => 'PUT']) !!}
+                    {!! Form::model($user, ['route' => ['admin.employee.update', $user->id], 'method' => 'PUT']) !!}
                     
-                       @include('pages.user._form')
+                       @include('pages.employee._form')
                     
                     {!! Form::close() !!}
                 </div>
