@@ -36,3 +36,10 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('admin/user', 'UserController');
+
+
+Route::group(['prefix' => 'table'], function () {
+    Route::get('/user', 'UserController@dataTable')->name('table.user');
+});

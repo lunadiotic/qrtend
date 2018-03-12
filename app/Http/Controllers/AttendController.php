@@ -22,12 +22,12 @@ class AttendController extends Controller
          * Jika Jam pagi tidak ada dan jam siang ada, masuk setengah hari
          */
 
-        $iplocal = ip2long(getHostByName(getHostName()));
-        $gateway = env('IP_ADDRESS');
-        $iplow = ip2long($gateway);
-        $iphigh = ip2long($gateway) + 253;
+        // $iplocal = ip2long(getHostByName(getHostName()));
+        // $gateway = env('IP_ADDRESS');
+        // $iplow = ip2long($gateway);
+        // $iphigh = ip2long($gateway) + 253;
 
-        if ($iplocal <= $iphigh && $iplow <= $iplocal) {
+        // if ($iplocal <= $iphigh && $iplow <= $iplocal) {
 
             if (User::where('email', $request->email)->exists()) {
                 $user = User::where('email', $request->email)->first();
@@ -78,12 +78,12 @@ class AttendController extends Controller
                 'response' => false,
                 'message' => 'Employee doesnt Exists'
             ];
-        }
+        // }
 
-        return $response = [
-            'data' => null,
-            'response' => false,
-            'message' => 'Out of range IP Address'
-        ];
+        // return $response = [
+        //     'data' => null,
+        //     'response' => false,
+        //     'message' => 'Out of range IP Address'
+        // ];
     }
 }
