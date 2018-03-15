@@ -11,8 +11,10 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
+    <link href="{{ asset('favicon.ico') }}" rel="icon" type="image/x-icon">
     <link href="{{ asset('vendor/bootstrap-3.3.7/css/bootstrap.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('vendor/sweetalert2/sweetalert2.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}">
     @yield('styles')
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
@@ -42,6 +44,8 @@
                         @if (!Auth::guest())
                             <li><a href="{{ route('admin.user.index') }}">User</a></li>
                             <li><a href="{{ route('admin.employee.index') }}">Employee</a></li>
+                            <li><a href="{{ route('admin.activity.index') }}">Activity</a></li>
+                            <li><a href="{{ route('admin.attend.index') }}">Attendace</a></li>
                         @endif
                     </ul>
 
@@ -86,6 +90,7 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{{ asset('vendor/bootstrap-3.3.7/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('vendor/sweetalert2/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
     @yield('scripts')
     <script src="{{ asset('js/app.js') }}"></script>
     <script type="text/javascript">

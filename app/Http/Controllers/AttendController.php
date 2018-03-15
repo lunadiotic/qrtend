@@ -5,10 +5,114 @@ namespace App\Http\Controllers;
 use App\Models\Attend;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Yajra\Datatables\Facades\Datatables;
 use DB;
 
 class AttendController extends Controller
 {
+
+    public function index()
+    {
+        return view('pages.attend.index-table');
+    }
+
+    public function create()
+    {
+        $employee = User::where('role', 'employee')->pluck('name', 'id');
+        return view('pages.attend.create', compact('employee'));
+    }
+
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'status' => 'required',
+            'user_id' => 'required',
+            'created_at' => 'required'  
+        ]);
+
+        if (Attend::where('created_at', $request->get('created_at'))->where('user_id', $request->get('user_id'))->first()) {
+            notify()->flash('Done!', 'error', [
+                'timer' => 1500,
+                'text' => 'Attendance on that date already exists.',
+            ]);
+            return redirect()->back()->withInput($request->input());
+        }
+
+        Attend::create($request->all());
+        
+        notify()->flash('Done!', 'success', [
+            'timer' => 1500,
+            'text' => 'Created Successfully',
+        ]);
+        
+        return redirect()->route('admin.attend.index');
+    }
+
+    public function edit($id)
+    {
+        $attend = Attend::findOrFail($id);
+        $employee = User::where('role', 'employee')->pluck('name', 'id');
+        return view('pages.attend.edit', compact('employee', 'attend'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+            'status' => 'required',
+            'user_id' => 'required',
+            'created_at' => 'required'  
+        ]);
+
+        if (Attend::where('user_id', '=', $request->get('user_id'))->where('created_at', $request->get('created_at'))->where('id', '!=', $id)->first()) {
+            notify()->flash('Done!', 'error', [
+                'timer' => 1500,
+                'text' => 'Attendance on that date already exists.',
+            ]);
+            return redirect()->back()->withInput($request->input());
+        }
+
+        $attend = Attend::findOrFail($id);
+        $attend->update($request->all());
+        
+        notify()->flash('Done!', 'success', [
+            'timer' => 1500,
+            'text' => 'Updated Successfully',
+        ]);
+        
+        return redirect()->route('admin.attend.index');
+    }
+
+    public function destroy($id)
+    {
+        if (!Attend::destroy($id)) return redirect()->back();
+        notify()->flash('Done!', 'success', [
+            'timer' => 1500,
+            'text' => 'Deleted Successfully',
+        ]);
+        return redirect()->route('admin.attend.index');
+    }
+
+    public function dataTable()
+    {
+        
+        $attend = Attend::where('status', 'absent')->orWhere('status', 'permit');
+        return Datatables::of($attend)
+            ->addColumn('user', function ($attend) {
+                return $attend->user->name;
+            })
+            ->addColumn('status', function ($attend) {
+                return $attend->status == 'absent' ? 'Tidak Hadir' : 'Izin';
+            })
+            ->addColumn('action', function ($attend) {
+                return view('layouts.partials._action', [
+                    'model' => $attend,
+                    'edit_url' => route('admin.attend.edit', $attend->id),
+                    'form_url' => route('admin.attend.destroy', $attend->id),
+                ]);
+            })
+            ->make(true);
+    }
+
     public function postScan(Request $request)
     {
         /**

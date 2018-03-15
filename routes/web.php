@@ -41,10 +41,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::get('/', 'HomeController@admin')->name('home');
     Route::resource('user', 'UserController');
     Route::resource('employee', 'EmployeeController');
+    Route::resource('activity', 'ActivityController');
+    Route::resource('attend', 'AttendController');
 });
 
 
 Route::group(['prefix' => 'table'], function () {
     Route::get('/user', 'UserController@dataTable')->name('table.user');
     Route::get('/employee', 'EmployeeController@dataTable')->name('table.employee');
+    Route::get('/activity', 'ActivityController@dataTable')->name('table.activity');
+    Route::get('/attend', 'AttendController@dataTable')->name('table.attend');
 });

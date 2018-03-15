@@ -10,8 +10,8 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Employee
-                    <a href="{{ route('admin.user.create') }}" class="btn btn-primary pull-right" style="margin-top: -8px;">Create+</a>
+                    Absent Permission
+                    <a href="{{ route('admin.attend.create') }}" class="btn btn-primary pull-right" style="margin-top: -8px;">Create+</a>
                 </div>
 
                 <div class="panel-body">
@@ -19,16 +19,18 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Name</th>
-                                <th>Email</th>
+                                <th>User</th>
+                                <th>Status</th>
+                                <th>Date</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
                                 <th>ID</th>
-                                <th>Name</th>
-                                <th>Email</th>
+                                <th>User</th>
+                                <th>Status</th>
+                                <th>Date</th>
                                 <th></th>
                             </tr>
                         </tfoot>
@@ -50,11 +52,12 @@
         var table = $('#datatable').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('table.employee') }}",
+            ajax: "{{ route('table.attend') }}",
             columns: [
                 {data: 'id', name: 'id'},
-                {data: 'name', name: 'name'},
-                {data: 'email', name: 'email'},
+                {data: 'user', name: 'user'},
+                {data: 'status', name: 'status'},
+                {data: 'created_at', name: 'created_at'},
                 {data: 'action', name: 'action', orderable: false, searchable: false}
             ]
         });

@@ -128,18 +128,18 @@ class UserController extends Controller
         return redirect()->route('admin.user.index');
     }
 
-        public function dataTable()
-        {
-            $user = User::where('role', 'admin');
-            return Datatables::of($user)
-                ->addColumn('action', function ($user) {
-                    return view('layouts.partials._action', [
-                        'model' => $user,
-                        'edit_url' => route('admin.user.edit', $user->id),
-                        'show_url' => route('admin.user.show', $user->id),
-                        'form_url' => route('admin.user.destroy', $user->id),
-                    ]);
-                })
-                ->make(true);
-        }
+    public function dataTable()
+    {
+        $user = User::where('role', 'admin');
+        return Datatables::of($user)
+            ->addColumn('action', function ($user) {
+                return view('layouts.partials._action', [
+                    'model' => $user,
+                    'edit_url' => route('admin.user.edit', $user->id),
+                    'show_url' => route('admin.user.show', $user->id),
+                    'form_url' => route('admin.user.destroy', $user->id),
+                ]);
+            })
+            ->make(true);
+    }
 }
